@@ -1,0 +1,16 @@
+
+version: '3'
+services:
+  node: node:10-alpine
+    build: 
+    ports:
+    - "3000:3000"
+    links:
+    - psql
+    volumes:
+    - ./node:/node
+    command: >
+      bash -c " cd /node \
+        && ls \
+        && npm install \
+        && node app.js"
