@@ -1,5 +1,5 @@
 const GrammarRule = require('./GrammerRule');
-const cy = require('cytoscape');
+//const cy = require('cytoscape');
 
 let idCounter = 0;
 

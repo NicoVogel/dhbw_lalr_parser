@@ -66,21 +66,18 @@ module.exports = class Manager {
                 block.parts.concat(new_parts);
             }
         })
-        while (hasUnexpaned) {
-            hasUnexpaned = false
-            
-        }
-        while(block.)
     }
 
     processBlock(block) {
-        block.getNext().forEach((target_block_part) => {
+        block.getNext().forEach((key, parts) => {
             let current_symbol = block_part.getSymbolBeforeDot();
-            let target_block = this.blocks.find((block) => block.contains([block_part]));
+            let target_block = this.blocks.find((block) => block.contains(parts));
             if (target_block) {
                 this.block.connections.set(current_symbol,target_block.id)
             } else {
-                let new_block = new GrammerBlock([target_block_part]);
+                let new_block = new GrammerBlock(parts);
+                this.expandBlock(new_block);
+                this.blocks.push(new_block);
                 this.block.connections.set(current_symbol, new_block.id)
             }
         })
