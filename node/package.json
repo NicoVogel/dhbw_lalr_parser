@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/nicovogel/dhbw_lalr_parser/issues"
   },
-  "homepage": "https://github.com/nicovogel/dhbw_lalr_parser#readme"
+  "homepage": "https://github.com/nicovogel/dhbw_lalr_parser#readme",
+  "dependencies": {
+    "cytoscape": "^3.2.17"
+  }
 }
