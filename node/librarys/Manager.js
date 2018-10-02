@@ -48,26 +48,33 @@ module.exports = class Manager {
             // TODO fix this is only working with the first rule, but could be more
             let rule = this.rulesProducing(blockPart.getSymbolAfterDot())[0];
             let new_part = new GrammerBlockPart(rule, "shouldnomatter")
-    
+
             console.log("blockPart: " + blockPart.getSymbolAfterDot());
             console.log("rule: " + rule);
             console.log("new_part: " + new_part);
-            
+
             return this.follows(new_part);
         }
     }
 
     expandBlock(block) {
         block.parts.forEach((part) => {
-            let check = util.beginsWithCaptial(part.getSymbolAfterDot());
-            if (check) {
-                let new_rules = this.rulesProducing(part.getSymbolAfterDot())
-                let new_parts = new_rules.map((rule) => {
-                    return new GrammerBlockPart(rule, this.follows(part.getNext()))
-                })
-                new_parts.forEach(element => {
-                    block.parts.push(element);
-                });
+            console.log("FOREACH BLOCK PARTS")
+            console.log("part: ", part);
+            console.log("after dot: ", part.getSymbolAfterDot());
+            if (!!part.getSymbolAfterDot()) {
+                let check = util.beginsWithCaptial(part.getSymbolAfterDot());
+                console.log("is uppercase", check);
+                console.log("is dot at end", part.dotAtEnd())
+                if (check && !part.dotAtEnd()) {
+                    let new_rules = this.rulesProducing(part.getSymbolAfterDot())
+                    let new_parts = new_rules.map((rule) => {
+                        return new GrammerBlockPart(rule, this.follows(part.getNext()))
+                    })
+                    new_parts.forEach(element => {
+                        block.parts.push(element);
+                    });
+                }
             }
         })
     }
@@ -84,6 +91,9 @@ module.exports = class Manager {
                 this.expandBlock(new_block);
                 this.blocks.push(new_block);
                 block.connections.set(current_symbol, new_block.id)
+                if (!new_block.allAreDone()) {
+                    this.processBlock(new_block);
+                }
             }
         })
 

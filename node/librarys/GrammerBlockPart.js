@@ -22,7 +22,7 @@ module.exports = class GrammerBlockPart {
         return this.grammerRule.rightSide[this.dot_before - 1];
     }
 
-    isReduced() {
+    dotAtEnd() {
         return this.grammerRule.rightSide.length <= this.dot_before;
     }
 
@@ -30,7 +30,7 @@ module.exports = class GrammerBlockPart {
         return !!part
             && this.dot_before === part.dot_before
             && this.lookahead === part.lookahead
-            && this.grammerRule.equlas(part.grammerRule);
+            && this.grammerRule.equals(part.grammerRule);
         
     }
 

@@ -31,7 +31,7 @@ module.exports = class GrammerRule {
         this.rightSide.forEach(element => {
             if(!rule.rightSide.includes(element)){
                 containsAll = false;
-                break;
+                return;
             }
         });
         return containsAll;

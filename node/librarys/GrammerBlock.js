@@ -45,5 +45,17 @@ module.exports = class GrammarBlock {
         return all;
     }
 
+    allAreDone(){
+        let all = true;
+
+        this.parts.forEach(element => {
+            if(!element.dotAtEnd()){
+                all = false;
+            }
+        });
+
+        return all;
+    }
+
 
 }
