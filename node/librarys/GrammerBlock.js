@@ -10,7 +10,7 @@ function getNextID(){
 module.exports = class GrammarBlock{
     constructor(parts){
         this.parts = parts;
-        this.connections = [];
+        this.connections = new Map();
         this.id = getNextID();
     }
 
