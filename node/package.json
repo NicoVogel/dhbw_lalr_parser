@@ -1,0 +1,22 @@
+{
+  "name": "lalr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicovogel/dhbw_lalr_parser.git"
+  },
+  "keywords": [
+    "lalr"
+  ],
+  "author": "nico, daniel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicovogel/dhbw_lalr_parser/issues"
+  },
+  "homepage": "https://github.com/nicovogel/dhbw_lalr_parser#readme"
+}
