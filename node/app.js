@@ -11,7 +11,7 @@ m.addRule("S -> a");
 m.addRule("S -> b");
 
 m.constructPDA();
-console.log(JSON.stringify(m, null, 2));
+//console.log(JSON.stringify(m, null, 2));
 console.log(m.prettyString);
-m.printBlocks();
+//m.printBlocks();
 //console.log(JSON.stringify(m, null, 2));

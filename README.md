@@ -6,7 +6,7 @@ The library is able to calculate a PDA LALR parser. The input are the rules whic
 - terminals start with **lower case**
 - non-terminals start **with uppercase**
 - the mapping is seperated with '**->**'
-- on the left side of the arrow is only one non-terminal allowed
+- on the left side of the arrow only one non-terminal is allowed
 
 *Further information:*
 - the no character is called **dollar** 
@@ -27,11 +27,14 @@ m.addRule("S -> b S b");
 m.addRule("S -> a");
 m.addRule("S -> b");
 
-// calculate the LATR parser
+// calculate the LALR parser
 m.constructPDA();
 
-// print the LATR parser to console
+// print the LALR parser to console (ugly version)
 m.printBlocks();
+
+// print the LALR parser to console
+console.log(m.prettyString);
 
 // print the connections table to console
 m.printTable();
@@ -48,7 +51,7 @@ There are two ways to do so:
     - \# if you use ubuntu add *sudo* before the following command 
     - docker-compose up
 
-2. clone the repo and start the node server from your host machine. Of cource, you need to have node installed for that. Use the following commands to run the sample code:
+2. clone the repo and start the node server from your host machine. Of course, you need to have node installed for that. Use the following commands to run the sample code:
     - git clone https://github.com/nicovogel/dhbw_lalr_parser
     - cd ./dhbw_lalr_parser/node
     - node app.js
