@@ -19,13 +19,12 @@ module.exports = class GrammerBlockPart {
 
     }
     getSymbolBeforeDot() {
-        return this.grammerRule.rightSide[this.dot_before-1];
+        return this.grammerRule.rightSide[this.dot_before - 1];
     }
 
     isReduced() {
         return this.grammerRule.rightSide.length <= this.dot_before;
     }
-
 
     equlas(part) {
         return !!part

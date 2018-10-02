@@ -19,9 +19,6 @@ module.exports = class GrammarBlock{
     }
 
     contains(parts) {
-<<<<<<< HEAD
-
-=======
         parts.forEach(element => {
             this.parts.forEach(part => {
                 if(part.equals(element)){
@@ -30,7 +27,6 @@ module.exports = class GrammarBlock{
             });
         });
         return true;
->>>>>>> save
     }
 
     
