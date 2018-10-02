@@ -31,6 +31,7 @@ module.exports = class GrammerBlockPart {
             && this.dot_before === part.dot_before
             && this.lookahead === part.lookahead
             && this.grammerRule.equlas(part.grammerRule);
+        
     }
 
 }

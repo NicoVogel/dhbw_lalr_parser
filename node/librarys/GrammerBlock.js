@@ -28,14 +28,21 @@ module.exports = class GrammarBlock {
     }
 
     contains(parts) {
+
+        let all = true;
         parts.forEach(element => {
+
+            let contains = false;
             this.parts.forEach(part => {
-                if (!part.equals(element)) {
-                    return false;
+                if (part.equals(element)) {
+                    contains = true;
                 }
             });
+            if(!contains){
+                all = false;
+            }
         });
-        return true;
+        return all;
     }
 
 
