@@ -9,6 +9,56 @@ function addAll(set, elements) {
     });
 }
 
+function rulesProducing(mgr, target) {
+    return mgr.rules.filter((rule) => rule.leftSide === target);
+}
+
+function follows(mgr, blockPart) {
+    if (!util.beginsWithCaptial(blockPart.getSymbolAfterDot())) {
+        return blockPart.getSymbolAfterDot();
+    } else {
+        // nextSymbol ist non-terminal. search for follows recursivly
+        // TODO fix this is only working with the first rule, but could be more
+        let rule = rulesProducing(mgr.rules, blockPart.getSymbolAfterDot())[0];
+        let new_part = new GrammerBlockPart(rule, "shouldnomatter")
+        return this.follows(mgr.rules, new_part);
+    }
+}
+
+function expandBlock(mgr, block) {
+    block.parts.forEach((part) => {
+        if (!!part.getSymbolAfterDot()) {
+            let check = util.beginsWithCaptial(part.getSymbolAfterDot());
+            if (check && !part.dotAtEnd()) {
+                let new_rules = rulesProducing(mgr, part.getSymbolAfterDot())
+                let new_parts = new_rules.map((rule) => {
+                    return new GrammerBlockPart(rule, follows(mgr, part.getNext()))
+                });
+                new_parts.forEach(element => {
+                    block.parts.push(element);
+                });
+            }
+        }
+    });
+}
+
+function processBlock(mgr, block) {
+
+    block.getNext().forEach((parts, current_symbol) => {
+        let target_block = mgr.blocks.find((block) => block.contains(parts));
+        if (target_block) {
+            block.connections.set(current_symbol, target_block.id)
+        } else {
+            let new_block = new GrammerBlock(parts);
+            expandBlock(mgr, new_block);
+            mgr.blocks.push(new_block);
+            block.connections.set(current_symbol, new_block.id)
+            if (!new_block.allAreDone()) {
+                processBlock(mgr, new_block);
+            }
+        }
+    });
+}
 
 module.exports = class Manager {
 
@@ -37,58 +87,7 @@ module.exports = class Manager {
         });
         let first_block = new GrammerBlock(block_parts);
         this.blocks.push(first_block);
-        this.processBlock(first_block);
-    }
-
-    rulesProducing(target) {
-        return this.rules.filter((rule) => rule.leftSide === target);
-    }
-
-    follows(blockPart) {
-        if (!util.beginsWithCaptial(blockPart.getSymbolAfterDot())) {
-            return blockPart.getSymbolAfterDot();
-        } else {
-            // nextSymbol ist non-terminal. search for follows recursivly
-            // TODO fix this is only working with the first rule, but could be more
-            let rule = this.rulesProducing(blockPart.getSymbolAfterDot())[0];
-            let new_part = new GrammerBlockPart(rule, "shouldnomatter")
-            return this.follows(new_part);
-        }
-    }
-
-    expandBlock(block) {
-        block.parts.forEach((part) => {
-            if (!!part.getSymbolAfterDot()) {
-                let check = util.beginsWithCaptial(part.getSymbolAfterDot());
-                if (check && !part.dotAtEnd()) {
-                    let new_rules = this.rulesProducing(part.getSymbolAfterDot())
-                    let new_parts = new_rules.map((rule) => {
-                        return new GrammerBlockPart(rule, this.follows(part.getNext()))
-                    })
-                    new_parts.forEach(element => {
-                        block.parts.push(element);
-                    });
-                }
-            }
-        })
-    }
-
-    processBlock(block) {
-        block.getNext().forEach((parts, current_symbol) => {
-            let target_block = this.blocks.find((block) => block.contains(parts));
-            if (target_block) {
-                block.connections.set(current_symbol, target_block.id)
-            } else {
-                let new_block = new GrammerBlock(parts);
-                this.expandBlock(new_block);
-                this.blocks.push(new_block);
-                block.connections.set(current_symbol, new_block.id)
-                if (!new_block.allAreDone()) {
-                    this.processBlock(new_block);
-                }
-            }
-        })
-
+        processBlock(this, first_block);
     }
 
     printBlocks() {
