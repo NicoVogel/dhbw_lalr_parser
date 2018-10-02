@@ -22,4 +22,19 @@ module.exports = class GrammerRule {
         return this.rightSide.filter((val) => !util.beginsWithCaptial(val))
     }
 
+    equals(rule) {
+        if (!rule || this.leftSide !== rule.leftSide){
+            return false;
+        }
+
+        let containsAll = true; 
+        this.rightSide.forEach(element => {
+            if(!rule.rightSide.includes(element)){
+                containsAll = false;
+                break;
+            }
+        });
+        return containsAll;
+    }
+
 };
