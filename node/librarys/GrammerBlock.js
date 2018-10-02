@@ -17,12 +17,14 @@ module.exports = class GrammarBlock {
         let map = new Map();
         this.parts.forEach(element => {
             let nextSymbol = element.getSymbolAfterDot();
-            let nextArray = map.get(nextSymbol);
-            if (!nextArray) {
-                nextArray = [];
-                map.set(nextSymbol, nextArray);
+            if (!!nextSymbol) {
+                let nextArray = map.get(nextSymbol);
+                if (!nextArray) {
+                    nextArray = [];
+                    map.set(nextSymbol, nextArray);
+                }
+                nextArray.push(element.getNext());
             }
-            nextArray.push(element.getNext());
         });
         return map;
     }
@@ -38,23 +40,38 @@ module.exports = class GrammarBlock {
                     contains = true;
                 }
             });
-            if(!contains){
+            if (!contains) {
                 all = false;
             }
         });
         return all;
     }
 
-    allAreDone(){
+    allAreDone() {
         let all = true;
 
         this.parts.forEach(element => {
-            if(!element.dotAtEnd()){
+            if (!element.dotAtEnd()) {
                 all = false;
             }
         });
 
         return all;
+    }
+
+    toString() {
+        const space = "    ";
+        console.log(space + "Block " + this.id);
+        console.log(space + space + "Regeln");
+        this.parts.forEach(part => {
+            console.log(space + space + space + part.toString());
+        });
+        if (this.connections.size > 0) {
+            console.log(space + space + space + "Verbindungen");
+            this.connections.forEach((value, key) => {
+                console.log(space + space + space + key + " " + value);
+            });
+        }
     }
 
 
