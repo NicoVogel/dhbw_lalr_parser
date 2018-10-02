@@ -101,10 +101,12 @@ module.exports = class Manager {
             block.parts.forEach(part => {
                 console.log(space + space + space + part.toString());
             });
-            console.log(space + space + space + "Verbindungen");
-            block.connections.forEach((value, key) => {
-                console.log(space + space + space + key + " " + value);
-            });
+            if (block.connections.size > 0) {
+                console.log(space + space + space + "Verbindungen");
+                block.connections.forEach((value, key) => {
+                    console.log(space + space + space + key + " " + value);
+                });
+            }
         });
     }
 
