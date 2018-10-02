@@ -9,8 +9,20 @@ module.exports = class GrammerBlockPart {
     }
 
     getNext() {
-    
+        
     }
 
-    
+    getSymbolAfterDot() {
+        return this.grammerRule.rightSide[this.dot_before];
+
+    }
+    getSymbolBeforeDot() {
+        return this.grammerRule.rightSide[this.dot_before-1];
+    }
+
+    isReduced() {
+        return this.grammerRule.rightSide.length <= this.dot_before;
+    }
+
+
 }
