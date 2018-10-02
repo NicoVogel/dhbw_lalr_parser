@@ -30,11 +30,24 @@ m.addRule("S -> b");
 // calculate the LATR parser
 m.constructPDA();
 
-// print the LATR parser
+// print the LATR parser to console
 m.printBlocks();
 
-// print the connections table
+// print the connections table to console
 m.printTable();
 
 ````
 
+## How to get it up and running?
+
+There are two ways to do so:
+
+1. clone the repo and use docker-compose to start a node container which executes the sample code. Use the following commands: 
+    - git clone https://github.com/nicovogel/dhbw_lalr_parser
+    - cd dhbw_lalr_parser
+    - # if you use ubuntu add *sudo* before the following command 
+    - docker-compose up
+2. clone the repo and start the node server from your host machine. Of cource, you need to have node installed for that. Use the following commands to run the sample code:
+    - git clone https://github.com/nicovogel/dhbw_lalr_parser
+    - cd ./dhbw_lalr_parser/node
+    - node app.js
