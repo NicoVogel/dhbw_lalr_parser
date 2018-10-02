@@ -1,5 +1,6 @@
 var GrammerRule = require('./librarys/GrammerRule');
+var Manager = require('./librarys/Manager');
 
-let G1 = new GrammerRule("S -> A B");
-console.log(G1);
-console.log(G1.nonTerminals);
+let m = new Manager();
+m.addRule("S -> A B");
+console.log(m.constructPDA());
