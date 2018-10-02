@@ -48,24 +48,14 @@ module.exports = class Manager {
             // TODO fix this is only working with the first rule, but could be more
             let rule = this.rulesProducing(blockPart.getSymbolAfterDot())[0];
             let new_part = new GrammerBlockPart(rule, "shouldnomatter")
-
-            console.log("blockPart: " + blockPart.getSymbolAfterDot());
-            console.log("rule: " + rule);
-            console.log("new_part: " + new_part);
-
             return this.follows(new_part);
         }
     }
 
     expandBlock(block) {
         block.parts.forEach((part) => {
-            console.log("FOREACH BLOCK PARTS")
-            console.log("part: ", part);
-            console.log("after dot: ", part.getSymbolAfterDot());
             if (!!part.getSymbolAfterDot()) {
                 let check = util.beginsWithCaptial(part.getSymbolAfterDot());
-                console.log("is uppercase", check);
-                console.log("is dot at end", part.dotAtEnd())
                 if (check && !part.dotAtEnd()) {
                     let new_rules = this.rulesProducing(part.getSymbolAfterDot())
                     let new_parts = new_rules.map((rule) => {
@@ -83,10 +73,8 @@ module.exports = class Manager {
         block.getNext().forEach((parts, current_symbol) => {
             let target_block = this.blocks.find((block) => block.contains(parts));
             if (target_block) {
-                console.log(1)
                 block.connections.set(current_symbol, target_block.id)
             } else {
-                console.log(2);
                 let new_block = new GrammerBlock(parts);
                 this.expandBlock(new_block);
                 this.blocks.push(new_block);
@@ -99,6 +87,30 @@ module.exports = class Manager {
 
     }
 
+    printBlocks() {
+        const space = "    ";
+        console.log("Regeln");
+        for (let index = 0; index < this.rules.length; index++) {
+            const rule = this.rules[index];
+            console.log(index + space + rule.toString());
+        }
+        console.log("Blöcke");
+        this.blocks.forEach(block => {
+            console.log(space + "Block " + block.id);
+            console.log(space + space + "Regeln");
+            block.parts.forEach(part => {
+                console.log(space + space + space + part.toString());
+            });
+            console.log(space + space + space + "Verbindungen");
+            block.connections.forEach((value, key) => {
+                console.log(space + space + space + key + " " + value);
+            });
+        });
+    }
+
+    printTable() {
+
+    }
 
 }
 
