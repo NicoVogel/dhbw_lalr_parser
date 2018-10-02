@@ -5,12 +5,10 @@ services:
     image: node:10-alpine
     ports:
     - "3000:3000"
-    links:
-    - psql
     volumes:
     - ./node:/node
     command: >
-      bash -c " cd /node \
+      sh -c " cd /node \
         && ls \
         && npm install \
         && node app.js"
