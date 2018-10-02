@@ -70,6 +70,7 @@ module.exports = class Manager {
     }
 
     addRule(ruleStr) {
+        ruleStr = ruleStr.trim();
         const rule = new GrammerRule(ruleStr);
         addAll(this.terminals, rule.terminals);
         addAll(this.nonTerminals, rule.nonTerminals);
