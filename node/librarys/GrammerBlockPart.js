@@ -26,6 +26,15 @@ module.exports = class GrammerBlockPart {
         return this.grammerRule.rightSide.length <= this.dot_before;
     }
 
+    get prettyString() {
+        return this.grammerRule.leftSide + " -> "
+            + this.grammerRule.rightSide.slice(0, this.dot_before).join(" ")
+            + "."
+            + this.grammerRule.rightSide.slice(this.dot_before).join(" ")
+            + ", "
+            + this.lookahead
+    }
+
     equals(part) {
         return !!part
             && this.dot_before === part.dot_before

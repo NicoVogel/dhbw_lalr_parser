@@ -26,6 +26,10 @@ module.exports = class Manager {
         this.rules.push(rule);
     }
 
+    get prettyString() {
+        return this.blocks.map(block => block.prettyString).join("")
+    }
+
     constructPDA() {
         let s_rules = this.rules.filter((rule) => rule.leftSide === "S");
         let block_parts = s_rules.map((rule) => {

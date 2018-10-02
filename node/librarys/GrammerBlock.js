@@ -57,5 +57,46 @@ module.exports = class GrammarBlock {
         return all;
     }
 
+    get prettyString() {
+        const arrow_group = "──┬──"
+        let width = Math.max(
+            this.parts
+                .map((part) => part.prettyString)
+                .map(ps => ps.length)
+                .reduce((max,val) => Math.max(max,val), 0),
+            arrow_group.length * this.connections.size
+        )
+        let header = ("┌" + this.id).padEnd(width+1, "─") + "┐\n"        
+        let body = this.parts
+            .map(part => "│" + part.prettyString.padEnd(width) + "│")
+            .join("\n");
+        let footer = "\n└" 
+            + arrow_group.repeat(this.connections.size) 
+            + "─".repeat(width - arrow_group.length * this.connections.size)
+            + "┘\n"
+        let connArray = Array.from(this.connections);
+        var labels = "   " + 
+            connArray
+                .map(kv => {
+                    return ("│" + kv[0]).padEnd(arrow_group.length)
+                })
+                .join("")
+            + "\n"
+        let arrows = "   " +
+            connArray
+                .map(kv => "▼".padEnd(arrow_group.length))
+                .join("")
+            + "\n"
+        let nums = "   " +
+            connArray
+                .map((kv => kv[1].toString().padEnd(arrow_group.length) ))
+                .join("")
+            + "\n"
+        let res = header + body + footer;
+        if (this.connections.size > 0) {
+            res +=  labels + arrows + nums;
+        }
+        return res;
+    }
 
 }

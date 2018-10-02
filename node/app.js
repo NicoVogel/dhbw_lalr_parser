@@ -7,3 +7,4 @@ m.addRule("S -> a b");
 m.constructPDA();
 
 console.log(JSON.stringify(m, null, 2));
+console.log(m.prettyString);
