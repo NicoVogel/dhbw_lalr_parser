@@ -26,7 +26,7 @@ module.exports = class GrammerBlockPart {
         return this.grammerRule.rightSide.length <= this.dot_before;
     }
 
-    equlas(part) {
+    equals(part) {
         return !!part
             && this.dot_before === part.dot_before
             && this.lookahead === part.lookahead

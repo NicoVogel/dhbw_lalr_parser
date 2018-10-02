@@ -5,4 +5,5 @@ let m = new Manager();
 m.addRule("S -> A B");
 m.addRule("A -> a");
 m.addRule("B -> b");
-console.log(m.constructPDA());
+m.constructPDA();
+console.log(JSON.stringify(m, null, 2));

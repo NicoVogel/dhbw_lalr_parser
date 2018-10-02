@@ -21,8 +21,11 @@ module.exports = class Manager {
 
     addRule(ruleStr) {
         const rule = new GrammerRule(ruleStr);
-        addAll(this.terminals, rule.nonTerminals);
-        addAll(this.nonTerminals, rule.terminals);
+        console.log(this.terminals);
+        addAll(this.terminals, rule.terminals);
+        this.terminals.add('test');
+        console.log(this.terminals);
+        addAll(this.nonTerminals, rule.nonTerminals);
         this.rules.push(rule);
     }
 
@@ -69,16 +72,16 @@ module.exports = class Manager {
     }
 
     processBlock(block) {
-        block.getNext().forEach((key, parts) => {
-            let current_symbol = block_part.getSymbolBeforeDot();
+        block.getNext().forEach((parts, current_symbol) => {
+
             let target_block = this.blocks.find((block) => block.contains(parts));
             if (target_block) {
-                this.block.connections.set(current_symbol,target_block.id)
+                block.connections.set(current_symbol,target_block.id)
             } else {
                 let new_block = new GrammerBlock(parts);
                 this.expandBlock(new_block);
                 this.blocks.push(new_block);
-                this.block.connections.set(current_symbol, new_block.id)
+                block.connections.set(current_symbol, new_block.id)
             }
         })
 
