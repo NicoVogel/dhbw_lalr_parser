@@ -4,7 +4,6 @@ var util = require('./util');
 
 module.exports = class GrammerRule {
     constructor(ruleStr) {
-        console.log(ruleStr);
         let ruleElems = ruleStr.split(" ");
         this.leftSide = ruleElems[0];
         util.assert(util.beginsWithCaptial(this.leftSide), "Left side must be non terminal");
@@ -35,6 +34,14 @@ module.exports = class GrammerRule {
             }
         });
         return containsAll;
+    }
+
+    toString(){
+        let str = this.leftSide + " -> ";
+        this.rightSide.forEach(right => {
+            str += right;
+        });
+        return str;
     }
 
 };

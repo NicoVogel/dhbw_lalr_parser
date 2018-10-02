@@ -43,4 +43,22 @@ module.exports = class GrammerBlockPart {
         
     }
 
+    toString(){
+        let str = this.grammerRule.leftSide + " -> ";
+        let dotWasPrinted = false;
+        for (let index = 0; index < this.grammerRule.rightSide.length; index++) {
+            const right = this.grammerRule.rightSide[index];
+            if(this.dot_before === index){
+                str += ".";
+                dotWasPrinted = true;
+            }
+            str += right;
+        }
+        if(!dotWasPrinted){
+            str += ".";
+        }
+        str += ", " + this.lookahead;
+        return str;
+    }
+
 }
