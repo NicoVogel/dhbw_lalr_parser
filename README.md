@@ -1,2 +1,4 @@
-# dhbw_lalr_parser
-Javascript formal language: LookAhead from Left to right with Rightmost derivation in reverse (LALR)
+# This is a project from two students of the DHBW Stuttgart
+
+Why did we create the algorithem?
+-> because we can :D
