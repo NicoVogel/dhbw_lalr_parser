@@ -15,13 +15,14 @@ module.exports = class GrammarBlock{
     }
 
     getNext() {
-        
+        let map = new Map();
+
     }
 
     contains(parts) {
         parts.forEach(element => {
             this.parts.forEach(part => {
-                if(part.equals(element)){
+                if(!part.equals(element)){
                     return false;
                 }
             });
