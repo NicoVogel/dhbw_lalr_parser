@@ -9,7 +9,9 @@ module.exports = class GrammerBlockPart {
     }
 
     getNext() {
-       
+        let next = new GrammerBlockPart(this.grammerRule, this.lookahead);
+        next.dot_before = this.dot_before + 1;
+        return next;
     }
 
     getSymbolAfterDot() {
@@ -17,13 +19,12 @@ module.exports = class GrammerBlockPart {
 
     }
     getSymbolBeforeDot() {
-        return this.grammerRule.rightSide[this.dot_before-1];
+        return this.grammerRule.rightSide[this.dot_before - 1];
     }
 
     isReduced() {
         return this.grammerRule.rightSide.length <= this.dot_before;
     }
-
 
     equlas(part) {
         return !!part
