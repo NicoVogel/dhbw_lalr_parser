@@ -14,5 +14,27 @@ The library is able to calculate a PDA LALR parser. The input are the rules whic
 
 ## How to use it?
 
-The main part is the *Manager.js*.
+The main part is the *Manager.js* and it has the following *functions*:
+
+````javascript
+
+// create manager
+let m = new Manager();
+
+// add rules for the PDA
+m.addRule("S -> a S a");
+m.addRule("S -> b S b");
+m.addRule("S -> a");
+m.addRule("S -> b");
+
+// calculate the LATR parser
+m.constructPDA();
+
+// print the LATR parser
+m.printBlocks();
+
+// print the connections table
+m.printTable();
+
+````
 
