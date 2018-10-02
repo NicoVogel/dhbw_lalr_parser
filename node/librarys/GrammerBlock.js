@@ -15,11 +15,22 @@ module.exports = class GrammarBlock{
     }
 
     getNext() {
-
+        
     }
 
     contains(parts) {
+<<<<<<< HEAD
 
+=======
+        parts.forEach(element => {
+            this.parts.forEach(part => {
+                if(part.equals(element)){
+                    return false;
+                }
+            });
+        });
+        return true;
+>>>>>>> save
     }
 
     
