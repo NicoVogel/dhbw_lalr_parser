@@ -8,8 +8,9 @@ module.exports = class GrammerBlockPart {
         util.assert(!util.beginsWithCaptial(lookahead), "Lookahead must be terminal")
     }
 
-    inFrontOfDot() {
-        return this.grammerRule.rightSide
+    getNext() {
+    
     }
 
+    
 }

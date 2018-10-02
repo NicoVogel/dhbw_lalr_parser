@@ -8,12 +8,19 @@ function getNextID(){
 }
 
 module.exports = class GrammarBlock{
-    constructor(rules){
-        this.rules = rules;
-        this.connections[];
+    constructor(parts){
+        this.parts = parts;
+        this.connections = [];
         this.id = getNextID();
     }
 
+    getNext() {
+
+    }
+
+    contains(parts) {
+        
+    }
 
     
 }
