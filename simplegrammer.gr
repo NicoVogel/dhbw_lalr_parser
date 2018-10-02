@@ -1,6 +1,0 @@
-S -> E
-E -> E Operator E
-E -> a
-E -> b
-Operator -> +
-Operator -> -
