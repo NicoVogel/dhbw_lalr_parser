@@ -5,10 +5,10 @@ let m = new Manager();
 //m.addRule("S -> a S b");
 //m.addRule("S -> a b");
 
-m.addRule("S -> a S a");
-m.addRule("S -> b S b");
-m.addRule("S -> a");
-m.addRule("S -> b");
+m.addRule("S -> T + S");
+m.addRule("S -> T - S");
+m.addRule("T -> - S");
+m.addRule("T -> num");
 
 m.constructPDA();
 //console.log(JSON.stringify(m, null, 2));

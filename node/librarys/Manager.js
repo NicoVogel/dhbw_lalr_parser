@@ -9,17 +9,19 @@ function addAll(set, elements) {
     });
 }
 
-function rulesProducing(mgr, target) {
-    return mgr.rules.filter((rule) => rule.leftSide === target);
+function rulesProducing(mgr, target, ) {
+    let res = mgr.rules.filter((rule) => rule.leftSide === target);
+    return res
 }
 
 function follows(mgr, blockPart) {
-    if (!util.beginsWithCaptial(blockPart.getSymbolAfterDot())) {
-        return blockPart.getSymbolAfterDot();
+    let nextSymbol = blockPart.getSymbolAfterDot();
+    if (!util.beginsWithCaptial(nextSymbol)) {
+        return blockPart.getSymbolAfterDot(nextSymbol);
     } else {
         // nextSymbol ist non-terminal. search for follows recursivly
         // TODO fix this is only working with the first rule, but could be more
-        let rule = rulesProducing(mgr.rules, blockPart.getSymbolAfterDot())[0];
+        let rule = rulesProducing(mgr.rules, nextSymbol)[0];
         let new_part = new GrammerBlockPart(rule, "shouldnomatter")
         return this.follows(mgr.rules, new_part);
     }
@@ -27,7 +29,7 @@ function follows(mgr, blockPart) {
 
 function expandBlock(mgr, block) {
     block.parts.forEach((part) => {
-        if (!!part.getSymbolAfterDot()) {
+        if (!!part.getSymbolAfterDot() && !!part.getNext().getSymbolAfterDot()) {
             let check = util.beginsWithCaptial(part.getSymbolAfterDot());
             if (check && !part.dotAtEnd()) {
                 let new_rules = rulesProducing(mgr, part.getSymbolAfterDot())
